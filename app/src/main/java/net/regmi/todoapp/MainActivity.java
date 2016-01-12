@@ -1,5 +1,7 @@
 package net.regmi.todoapp;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,18 +19,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
     /*
       Also take a look at http://developer.android.com/guide/topics/ui/layout/listview.html
      */
-    ArrayList<String> todoItems;
-    ArrayAdapter<String> todoAdapter;
-    ListView listViewItems;
-    EditText etAddItemEditText;
-    public static final String INTENT_EXTRA_ITEM_TEXT = "";
+    private ArrayList<String> todoItems;
+    private ArrayAdapter<String> todoAdapter;
+    private ListView listViewItems;
+    private EditText etAddItemEditText;
+    //public static final String INTENT_EXTRA_ITEM_TEXT = "";
+    //public static final String INTENT_EXTRA_ITEM_TEXT_ON_SAVE = "";
+    public static final int INTENT_ITEM_REQUEST_CODE = 0x01;
+    public static final int INTENT_ITEM_RESULT_CODE = 0x02;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.v(LOG_TAG, "onCreate() - savedInstanceState " + savedInstanceState);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -44,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         // Get reference of Edit Text from Layout Resources
         etAddItemEditText = (EditText) findViewById(R.id.etAddItemEditText);
 
-        //Add Long Action Listener for a list view item.
+        //Add Long Action Listener for a list view item to delete an item.
         listViewItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -55,17 +61,48 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        listViewItems.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectedItem = parent.getItemAtPosition(position).toString();
-                Intent i = new Intent(MainActivity.this, EditItemActivity.class);
-                i.putExtra(getString(R.string.INTENT_EXTRA_ITEM_TEXT),selectedItem/* etAddItemEditText.getText().toString()*/);
-                i.putExtra(getString(R.string.INTENT_EXTRA_ITEM_POSITION), position);
-                Log.v("MainActivity", "Before Starting Activity Text = " + selectedItem);
-                startActivity(i);
+        // Add Click Listener to open an activity to edit selected item
+        listViewItems.setOnItemClickListener(new ListViewOnItemClickListener());
+    }
+
+
+    private class ListViewOnItemClickListener implements AdapterView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            String selectedItem = parent.getItemAtPosition(position).toString();
+            Intent intent = new Intent(MainActivity.this, EditItemActivity.class);
+            intent.putExtra(getString(R.string.INTENT_EXTRA_ITEM_TEXT), selectedItem);
+            intent.putExtra(getString(R.string.INTENT_EXTRA_ITEM_POSITION), position);
+            Log.v(LOG_TAG, "Before Starting Activity Text = " + selectedItem);
+            try {
+                //startActivity(i);
+                startActivityForResult(intent, INTENT_ITEM_REQUEST_CODE);
+            } catch (ActivityNotFoundException ex) {
+                ex.printStackTrace();
             }
-        });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == INTENT_ITEM_REQUEST_CODE) {
+            if(resultCode == Activity.RESULT_CANCELED) {
+                Log.v(LOG_TAG, "Error in sending the result from EditItemActivity");
+                return;
+            }
+
+            if(resultCode == Activity.RESULT_OK) {
+                String editedText =
+                        data.getExtras()
+                            .getString(getString(R.string.INTENT_EXTRA_ITEM_EDITED_TEXT));
+                int editedTextPosInListView = data.getExtras()
+                                                  .getInt(getString(R.string.INTENT_EXTRA_ITEM_EDITED_TEXT_POSITION));
+                Log.v(LOG_TAG, "Edited Text =" + editedText + " position = " + editedTextPosInListView);
+                todoItems.set(editedTextPosInListView, editedText);
+                todoAdapter.notifyDataSetChanged();
+                writeItemsToFile();
+            }
+        }
     }
 
     public void populateArrayItems() {

@@ -8,4 +8,6 @@
     <string name="save_item">Save Item</string>
     <string name="INTENT_EXTRA_ITEM_TEXT">net.regmi.todoapp.ITEM_TEXT</string>
     <string name="INTENT_EXTRA_ITEM_POSITION">net.regmi.todoapp.ITEM_POSITION</string>
+    <string name="INTENT_EXTRA_ITEM_EDITED_TEXT">net.regmi.todoapp.ITEM_EDITED_TEXT</string>
+    <string name="INTENT_EXTRA_ITEM_EDITED_TEXT_POSITION">net.regmi.todoapp.ITEM_POSITION</string>
 </resources>
