@@ -24,5 +24,6 @@ Codepath (http://www.codepath.com/).
 **Walkthrough of the the required user stories**:
 
 ![Video Walkthrough](images/todoapp_animation3.gif)
+
 Android Phone Screen Recorded to mp4 by [AZ Screen Recorder](https://play.google.com/store/apps/details?id=com.hecorat.screenrecorder.free&hl=en)
 MP4 converted to gif with [LiceCap](http://www.cockos.com/licecap/).
