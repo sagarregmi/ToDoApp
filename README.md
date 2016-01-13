@@ -1,9 +1,9 @@
 # ToDoApp
 
-This is an Android application to create a simple To-Do list, done as a part of Pre-work to participate in Android bootcamp organized by
+This is a simple To-Do list Android Application wrriten as a part of Pre-work to participate in Android bootcamp organized by
 Codepath (http://www.codepath.com/). 
 
-Time spent: 8 - 10 hours in total
+*Time spent*: 8 - 10 hours in total
 
 **Completed user stories:**
  * [x] *Required*: Add and Remove items from todo list.
@@ -24,4 +24,5 @@ Time spent: 8 - 10 hours in total
 **Walkthrough of the the required user stories**:
 
 ![Video Walkthrough](images/todoapp_animation.gif)
-GIF created with [LiceCap](http://www.cockos.com/licecap/). 
+Android Phone Screen Recorded to mp4 by [AZ Screen Recorder](https://play.google.com/store/apps/details?id=com.hecorat.screenrecorder.free&hl=en)
+MP4 converted to gif with [LiceCap](http://www.cockos.com/licecap/).
