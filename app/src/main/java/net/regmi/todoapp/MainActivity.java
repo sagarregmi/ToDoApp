@@ -1,7 +1,9 @@
 package net.regmi.todoapp;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,51 +22,49 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
-    /*
-      Also take a look at http://developer.android.com/guide/topics/ui/layout/listview.html
-     */
+
     private ArrayList<String> todoItems;
     private ArrayAdapter<String> todoAdapter;
     private ListView listViewItems;
     private EditText etAddItemEditText;
+
+    public static final int INTENT_ITEM_REQUEST_CODE = 0x01;
     //public static final String INTENT_EXTRA_ITEM_TEXT = "";
     //public static final String INTENT_EXTRA_ITEM_TEXT_ON_SAVE = "";
-    public static final int INTENT_ITEM_REQUEST_CODE = 0x01;
-    public static final int INTENT_ITEM_RESULT_CODE = 0x02;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.v(LOG_TAG, "onCreate() - savedInstanceState " + savedInstanceState);
+        Log.v(LOG_TAG, "onCreate() - savedInstanceState = " + savedInstanceState);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // populate the ArrayList
         populateArrayItems();
 
-        // get the List reference of View from Layout Resources
+        // get the reference of ListView from Layout
         listViewItems = (ListView) findViewById(R.id.lvItems);
 
         // Set the list view to the ArrayList adapter
         listViewItems.setAdapter(todoAdapter);
 
-        // Get reference of Edit Text from Layout Resources
+        // Get reference of Edit Text from Layout
         etAddItemEditText = (EditText) findViewById(R.id.etAddItemEditText);
+
+        // Add Click Listener to open an activity to edit selected item
+        listViewItems.setOnItemClickListener(new ListViewOnItemClickListener());
 
         //Add Long Action Listener for a list view item to delete an item.
         listViewItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                //confirmDialog(position);
                 todoItems.remove(position);
                 todoAdapter.notifyDataSetChanged();
                 writeItemsToFile();
                 return false;
             }
         });
-
-        // Add Click Listener to open an activity to edit selected item
-        listViewItems.setOnItemClickListener(new ListViewOnItemClickListener());
     }
-
 
     private class ListViewOnItemClickListener implements AdapterView.OnItemClickListener {
         @Override
@@ -82,6 +82,31 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    /*
+    private void confirmDialog(final int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setMessage("Are you sure ?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        todoItems.remove(pos);
+                        todoAdapter.notifyDataSetChanged();
+                        writeItemsToFile();
+
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                })
+                .show();
+
+    }
+    */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

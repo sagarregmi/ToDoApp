@@ -17,7 +17,15 @@
         </activity>
         <activity
             android:name=".EditItemActivity"
-            android:label="@string/title_activity_edit_item" />
+            android:label="@string/title_activity_edit_item"
+            android:parentActivityName="net.regmi.todoapp.MainActivity" >
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="net.regmi.todoapp.MainActivity" />
+
+        </activity>
     </application>
 
 </manifest>
