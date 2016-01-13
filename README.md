@@ -27,6 +27,6 @@ Work in Progress for above optional features. Checking in soon.
 
 Here's a walkthrough of implemented user stories:
 
-<img src='images/todoapp_animation3.gif' title='Video Walkthrough' width='406' alt='Video Walkthrough' />
+<img src='images/todoapp_animation3.gif' title='Video Walkthrough' width='400' alt='Video Walkthrough' />
 
 Android Phone Screen Recorded to mp4 by [AZ Screen Recorder](https://play.google.com/store/apps/details?id=com.hecorat.screenrecorder.free&hl=en)
