@@ -1,28 +1,32 @@
-# ToDoApp
+# Pre-work - *ToDoApp*
 
-This is a simple To-Do list Android Application wrriten as a part of Pre-work to participate in Android bootcamp organized by
-Codepath (http://www.codepath.com/). 
+**ToDOApp** is an android app that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
 
-*Time spent*: 8 - 10 hours in total
+Submitted by: **Sagar Regmi**
 
-**Completed user stories:**
- * [x] *Required*: Add and Remove items from todo list.
- * [x] *Required*: Support for Editing Todo Items.
- * [x] *Required*: Support for saving the edited Item persitently to text file and 
- * [x] *Required*: Retrieve them properly as app restarts
+Time spent: **10** hours spent in total
 
-**Work In Progress**: 
- * [ ] *Suggested*: Persist the todo items into SQLite instead of a text file
- * [ ] *Suggested*: Improve style of the todo items in the list using a custom adapter
- * [ ] *Suggested*: Add support for completion due dates for todo items (and display within listview item)
- * [ ] *Suggested*: Use a DialogFragment instead of new Activity for editing items
- * [ ] *Optional*: Add support for selecting the priority of each todo item (and display in listview item)
- * [ ] *Optional*: Tweak the style improving the UI / UX, play with colors, images or backgrounds
- * [ ] *Optoinal*: Anything else to get done to improve the app functionality or user experience!  
- * [ ] *Suggested*: Improve the clarity of code and meet Android Style guidelines
+## User Stories
 
-**Walkthrough of the the required user stories**:
+The following **required** functionality is completed:
 
-![Video Walkthrough](images/todoapp_animation3.gif)
+* [x] User can **successfully add and remove items** from the todo list
+* [x] User can **tap a todo item in the list and bring up an edit screen for the todo item** and then have any changes to the text reflected in the todo list.
+* [x] User can **persist todo items** and retrieve them properly on app restart
+
+The following **optional** features are implemented:
+
+* [ ] Persist the todo items [into SQLite](http://guides.codepath.com/android/Persisting-Data-to-the-Device#sqlite) instead of a text file
+* [ ] Improve style of the todo items in the list [using a custom adapter](http://guides.codepath.com/android/Using-an-ArrayAdapter-with-ListView)
+* [ ] Add support for completion due dates for todo items (and display within listview item)
+* [ ] Use a [DialogFragment](http://guides.codepath.com/android/Using-DialogFragment) instead of new Activity for editing items
+* [ ] Add support for selecting the priority of each todo item (and display in listview item)
+* [ ] Tweak the style improving the UI / UX, play with colors, images or backgrounds
+
+Work in Progress for above optional features. Checking in soon.
+
+Here's a walkthrough of implemented user stories:
+
+<img src='images/todoapp_animation3.gif' title='Video Walkthrough' width='406' alt='Video Walkthrough' />
+
 Android Phone Screen Recorded to mp4 by [AZ Screen Recorder](https://play.google.com/store/apps/details?id=com.hecorat.screenrecorder.free&hl=en)
-MP4 converted to gif with [LiceCap](http://www.cockos.com/licecap/).
